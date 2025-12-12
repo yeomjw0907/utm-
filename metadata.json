@@ -1,0 +1,5 @@
+{
+  "name": "스마트 UTM 생성기",
+  "description": "AI 기반 캠페인 파라미터 제안 기능이 포함된 전문 UTM 링크 생성기.",
+  "requestFramePermissions": []
+}

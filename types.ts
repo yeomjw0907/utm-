@@ -21,11 +21,3 @@ export interface BlogPost {
   content: string;
   createdAt: string;
 }
-
-export interface AiSuggestionResponse {
-  source: string;
-  medium: string;
-  campaign: string;
-  term?: string;
-  content?: string;
-}

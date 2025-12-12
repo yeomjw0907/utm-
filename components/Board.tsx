@@ -46,7 +46,6 @@ const Board: React.FC = () => {
     const updatedPosts = [newPost, ...posts];
     savePosts(updatedPosts);
     
-    // Reset and close
     setTitle('');
     setContent('');
     setIsWriting(false);
@@ -59,16 +58,18 @@ const Board: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 animate-fade-in">
       
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-10 gap-6">
         <div>
-           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-             <FileTextIcon className="text-secondary" />
+           <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+             <div className="p-2 bg-secondary/10 rounded-xl text-secondary">
+               <FileTextIcon className="w-6 h-6" />
+             </div>
              나만의 게시판
            </h2>
-           <p className="text-gray-400 text-sm mt-1">
+           <p className="text-slate-400 text-sm mt-2 ml-1">
              아이디어나 메모를 자유롭게 기록하고 저장하세요.
            </p>
         </div>
@@ -76,91 +77,102 @@ const Board: React.FC = () => {
         {!isWriting && (
           <button
             onClick={() => setIsWriting(true)}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary hover:bg-indigo-500 text-white px-5 py-2.5 rounded-lg font-medium transition-all shadow-lg shadow-indigo-900/20"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-primaryDark hover:from-primaryDark hover:to-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 transform hover:-translate-y-0.5"
           >
             <PlusIcon className="w-5 h-5" />
-            글쓰기
+            새 글 작성
           </button>
         )}
       </div>
 
       {/* Editor Section */}
       {isWriting && (
-        <div className="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-700 mb-8 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-white">새 글 작성</h3>
-            <button 
-              onClick={() => setIsWriting(false)} 
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <XIcon className="w-5 h-5" />
-            </button>
-          </div>
-          
-          <div className="space-y-4">
-            <div>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="제목을 입력하세요"
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all font-medium text-lg"
-              />
-            </div>
-            <div>
-              <textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                placeholder="내용을 자유롭게 작성하세요..."
-                className="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all h-64 resize-none leading-relaxed"
-              />
-            </div>
-            <div className="flex justify-end gap-3 pt-2">
-              <button
-                onClick={() => setIsWriting(false)}
-                className="px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors text-sm"
+        <div className="bg-surface/50 backdrop-blur-md rounded-2xl p-1 shadow-2xl border border-white/10 mb-10 animate-slide-up">
+          <div className="bg-slate-900 rounded-[20px] p-6 sm:p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-lg font-semibold text-white">작성하기</h3>
+              <button 
+                onClick={() => setIsWriting(false)} 
+                className="text-slate-500 hover:text-white transition-colors p-1"
               >
-                취소
+                <XIcon className="w-5 h-5" />
               </button>
-              <button
-                onClick={handleCreate}
-                className="flex items-center gap-2 bg-secondary hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-green-900/20"
-              >
-                <SaveIcon className="w-4 h-4" />
-                저장하기
-              </button>
+            </div>
+            
+            <div className="space-y-5">
+              <div>
+                <input
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="제목을 입력하세요"
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all font-bold text-lg"
+                  autoFocus
+                />
+              </div>
+              <div>
+                <textarea
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  placeholder="내용을 자유롭게 작성하세요..."
+                  className="w-full bg-slate-800/50 border border-slate-700 rounded-xl p-4 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all h-64 resize-none leading-relaxed custom-scrollbar"
+                />
+              </div>
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  onClick={() => setIsWriting(false)}
+                  className="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium"
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleCreate}
+                  className="flex items-center gap-2 bg-secondary hover:bg-emerald-600 text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-lg shadow-secondary/20"
+                >
+                  <SaveIcon className="w-4 h-4" />
+                  저장하기
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* Posts List Section */}
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 gap-4">
         {posts.length === 0 && !isWriting ? (
-          <div className="text-center py-20 bg-gray-800/30 rounded-2xl border border-dashed border-gray-700">
-             <FileTextIcon className="w-16 h-16 text-gray-600 mx-auto mb-4 opacity-50" />
-             <p className="text-gray-400 text-lg">작성된 글이 없습니다.</p>
-             <button onClick={() => setIsWriting(true)} className="mt-2 text-secondary hover:underline">첫 글을 작성해보세요!</button>
+          <div className="text-center py-24 bg-surface/30 rounded-3xl border border-dashed border-slate-700/50">
+             <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FileTextIcon className="w-10 h-10 text-slate-600" />
+             </div>
+             <p className="text-slate-400 text-lg font-medium">아직 작성된 글이 없습니다.</p>
+             <p className="text-slate-600 text-sm mt-2 mb-6">첫 번째 아이디어를 기록해보세요.</p>
+             <button 
+               onClick={() => setIsWriting(true)} 
+               className="text-primary hover:text-primaryDark font-semibold transition-colors border-b-2 border-primary/20 hover:border-primary"
+             >
+               글쓰기 시작
+             </button>
           </div>
         ) : (
           posts.map(post => (
-            <div key={post.id} className="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all group">
-               <div className="flex justify-between items-start mb-3">
-                 <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">{post.title}</h3>
+            <div key={post.id} className="bg-surface/40 backdrop-blur-sm rounded-2xl p-6 border border-white/5 hover:border-primary/20 hover:bg-surface/60 transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl">
+               <div className="flex justify-between items-start mb-4">
+                 <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors line-clamp-1 pr-4">{post.title}</h3>
                  <button 
                     onClick={() => handleDelete(post.id)}
-                    className="text-gray-500 hover:text-red-400 transition-colors p-1"
+                    className="text-slate-500 hover:text-rose-400 transition-colors p-2 rounded-lg hover:bg-rose-500/10 opacity-0 group-hover:opacity-100"
                     title="삭제"
                  >
                    <TrashIcon className="w-4 h-4" />
                  </button>
                </div>
-               <div className="text-xs text-gray-500 flex items-center gap-1 mb-4">
-                 <CalendarIcon className="w-3 h-3" />
-                 {post.createdAt}
-               </div>
-               <div className="text-gray-300 whitespace-pre-wrap leading-relaxed">
+               <div className="text-slate-300 whitespace-pre-wrap leading-relaxed mb-4 text-sm sm:text-base line-clamp-3 group-hover:line-clamp-none transition-all">
                  {post.content}
+               </div>
+               <div className="flex items-center gap-2 pt-4 border-t border-white/5">
+                 <CalendarIcon className="w-3.5 h-3.5 text-slate-500" />
+                 <span className="text-xs text-slate-500 font-medium">{post.createdAt}</span>
                </div>
             </div>
           ))
